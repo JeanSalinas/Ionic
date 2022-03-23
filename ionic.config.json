@@ -1,0 +1,7 @@
+{
+  "name": "sesion",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
