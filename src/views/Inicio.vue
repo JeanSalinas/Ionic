@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header translucent="true">
       <ion-toolbar>
-        <ion-title> Inicio de Sesion </ion-title>
+        <ion-title> Inicio de Sesión </ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content fullscreen="true">
@@ -13,7 +13,10 @@
               <ion-card-header>
                 <ion-card-title>
                   <ion-label>
-                    <h2>Inicio de Sesion</h2>
+                    <center>
+                    <!-- <h2>Inicio de Sesion</h2> -->
+                     <img class="log" src="../images/logo.png">
+                     </center>
                   </ion-label>
                 </ion-card-title>
               </ion-card-header>
@@ -40,6 +43,7 @@
                   Ir a Registro
                 </ion-button>
               </ion-card-content>
+              {{ passIncorrect }}
             </ion-card>
           </ion-col>
         </ion-row>
@@ -70,6 +74,17 @@ import {
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import router from "@/router";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  setDoc,
+  getDoc,
+  QuerySnapshot,
+} from "@firebase/firestore/lite";
+import app from "@/firebase/conection";
+import sha256 from "js-sha256";
 export default defineComponent({
   name: "InicioApp",
   components: {
@@ -91,7 +106,16 @@ export default defineComponent({
     IonGrid,
     IonInput,
   },
+  data(){
+    return{
+      Nombre: "",
+      Apellido: "",
+      Correo: "",
+      Contraseña: "",
+      ContraseñaIncorrecta:"",
 
+    }
+  },
   methods: {
     Registro() {
       router.push("/Registro");
@@ -99,9 +123,30 @@ export default defineComponent({
     Iniciar() {
       router.push("/Home");
     },
+    async Inicio(){
+    const db = getFirestore(app);
+    const docRef = doc(db, "usuarios", this.Nombre);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        const contrasena = docSnap.data();
+        const comparar = sha256.sha256(this.Contraseña);
+        if (comparar == contrasena.Contraseña) {
+          router.push("/Home");
+        } else {
+          this.ContraseñaIncorrecta = "Datos erroneos";
+        }
+        //console.log("Document data:", docSnap.data());
+      } else {
+        this.ContraseñaIncorrecta = "Datos erroneos";
+        console.log("No such document!");
+      }
+    },
   },
 });
 </script>
-
 <style>
+.log{
+  width: 250px;
+  height: 250px;
+}
 </style>

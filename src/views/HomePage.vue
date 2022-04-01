@@ -2,55 +2,104 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Aplicacion</ion-title>
+        <ion-title>Bienvenidos a esta aplicacion</ion-title>
       </ion-toolbar>
     </ion-header>
-    
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          
-        </ion-toolbar>
-      </ion-header>
-    
-      <div id="container">
-        <strong>Bienvenido</strong>
-        <p>
-          <ion-button expand="block" @click="Login">Ir a inicio de sesion</ion-button>
-          <ion-button expand="block" @click="Register">Ir a Registrarse</ion-button>
-        </p>
-      </div>
+      <!-- <ion-header collapse="condense"></ion-header> -->
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>
+                  <ion-label>
+                    <!-- <div id="container"> -->
+                      <!--<strong>Bienvenido</strong>-->
+                      <!-- <img class="ghome" src="../images/Goku.jpg"> -->
+                      <center>
+                        <img class="ghome" src="../images/wel.gif" />
+                      </center> 
+                      <p>
+                        <ion-button expand="block" @click="Login">
+                          Ir a inicio de sesion
+                        </ion-button>
+                        <ion-button expand="block" @click="Register">
+                          Ir a Registrarse
+                        </ion-button>
+                      </p>
+                    <!-- </div> -->
+                  </ion-label>
+                </ion-card-title>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import { defineComponent } from 'vue';
-import router from '@/router';
+import {
+  IonLabel,
+  IonCardTitle,
+  IonCardHeader,
+  //IonItem,
+  //IonList,
+  IonButton,
+  //IonCardContent,
+  IonCard,
+  IonCol,
+  IonRow,
+  IonGrid,
+  //IonInput,
+} from "@ionic/vue";
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/vue";
+import { defineComponent } from "vue";
+import router from "@/router";
 export default defineComponent({
-  name: 'HomePage',
+  name: "HomePage",
   components: {
     IonContent,
     IonHeader,
     IonPage,
     IonTitle,
-    IonToolbar
-  },methods:{
-  Login(){
-    router.push('/Inicio')
+    IonToolbar,
+    IonLabel,
+    IonCardTitle,
+    IonCardHeader,
+    //IonItem,
+    //IonList,
+    IonButton,
+    //IonCardContent,
+    IonCard,
+    IonCol,
+    IonRow,
+    IonGrid,
+    //IonInput,
   },
-  Register(){
-    router.push('/Registro')
-  }
-  }
+  methods: {
+    Login() {
+      router.push("/Inicio");
+    },
+    Register() {
+      router.push("/Registro");
+    },
+  },
 });
 </script>
 
 <style scoped>
 #container {
   text-align: center;
-  
+
   position: absolute;
   left: 0;
   right: 0;
@@ -64,12 +113,16 @@ export default defineComponent({
 #container p {
   font-size: 16px;
   line-height: 22px;
-  
+
   color: #8c8c8c;
-  
+
   margin: 0;
 }
 #container a {
   text-decoration: none;
+}
+.ghome {
+  width: 500px;
+  height: 200px;
 }
 </style>  
