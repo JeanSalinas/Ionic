@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Bienvenidos a esta aplicacion</ion-title>
+        <ion-title>Bienvenidos a Rest</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -17,18 +17,36 @@
                     <!-- <div id="container"> -->
                       <!--<strong>Bienvenido</strong>-->
                       <!-- <img class="ghome" src="../images/Goku.jpg"> -->
-                      <center>
-                        <img class="ghome" src="../images/wel.gif" />
-                      </center> 
+                      <!-- <center>
+                        <img class="res" src="../images/rest.png" />
+                      </center>  -->
+                      <ion-list>
+                      <ion-item>
+                        <ion-label position="floating"> ID </ion-label>
+                        <ion-input type="text" v-model="ID" placeholder="ID"></ion-input>
+                      </ion-item>
+                      <ion-button expand="block" @click="Get">
+                          Get
+                        </ion-button>
+                        <ion-button expand="block" @click="Post">
+                          Post
+                        </ion-button>
+                      <ion-item>
+                        <ion-label position="floating"> Temperatura </ion-label>
+                        <ion-input type="text" v-model="Temperatura" placeholder="Temperatura"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label position="floating"> Altitud </ion-label>
+                        <ion-input type="text" v-model="Altitud" placeholder="Altitud"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label position="floating"> Humedad </ion-label>
+                        <ion-input type="text" v-model="Humedad" placeholder="Humedad"></ion-input>
+                      </ion-item>
+                    </ion-list>
                       <p>
-                        <ion-button expand="block" @click="Rest">
-                          Ir a Rest
-                        </ion-button>
-                        <ion-button expand="block" @click="Gps">
-                          Ir a mirar tu ubicacion
-                        </ion-button>
-                        <ion-button expand="block" @click="Login">
-                          Salir
+                        <ion-button expand="block" @click="Inicio">
+                          Volver a la Pagina Principal
                         </ion-button>
                       </p>
                     <!-- </div> -->
@@ -89,8 +107,9 @@ export default defineComponent({
     //IonInput,
   },
   methods: {
-    Rest() {
-      router.push("/rest");
+    
+    Inicio(){
+        router.push("/Home");
     },
     Login() {
       router.push("/Inicio");
@@ -130,8 +149,8 @@ export default defineComponent({
 #container a {
   text-decoration: none;
 }
-.ghome {
-  width: 500px;
-  height: 200px;
-}
+/* .res {
+  width: 200px;
+  height: 150px;
+} */
 </style>  

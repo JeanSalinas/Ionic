@@ -25,19 +25,19 @@
                     <ion-list>
                       <ion-item>
                         <ion-label position="floating"> Nombre de Usuario </ion-label>
-                        <ion-input type="text" v-model="Nombre"></ion-input>
+                        <ion-input type="text" v-model="Nombre" placeholder="Nombre Usuario"></ion-input>
                       </ion-item>
                       <ion-item>
                         <ion-label position="floating"> Apellido </ion-label>
-                        <ion-input type="text" v-model="Apellido"></ion-input>
+                        <ion-input type="text" v-model="Apellido" placeholder="Apellido"></ion-input>
                       </ion-item>
                       <ion-item>
                         <ion-label position="floating"> Correo Electronico </ion-label>
-                        <ion-input type="email" v-model="Correo" placeholder=""></ion-input>
+                        <ion-input type="email" v-model="Correo" placeholder="ejemplo@gmail.com"></ion-input>
                       </ion-item>
                       <ion-item>
                         <ion-label position="floating"> Contraseña </ion-label>
-                        <ion-input type="password" v-model="Contraseña"></ion-input>
+                        <ion-input type="password" v-model="Contraseña" placeholder="Contraseña"></ion-input>
                       </ion-item>
                     </ion-list>
                     <!-- <ion-button expand="block" @click="Registrar">
@@ -81,6 +81,7 @@ import {
   IonRow,
   IonGrid,
   IonInput,
+  alertController,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import router from "@/router";
@@ -116,7 +117,6 @@ export default defineComponent({
     IonGrid,
     IonInput,
   },
-
   data() {
     return {
       Nombre: "",
@@ -127,13 +127,14 @@ export default defineComponent({
       eme:"",
     };
   },
-
   methods: {
     Iniciar() {
       router.push("/Inicio");
     },
     async Registrar() {
       const db = getFirestore(app);
+      const docRef = doc(db, "registros", this.Nombre);
+      const docSnap = await getDoc(docRef)
       if (
         this.Nombre.length > 0 &&
         this.Apellido.length > 0 &&
@@ -151,22 +152,35 @@ export default defineComponent({
         this.Apellido = "";
         this.Correo = "";
         this.Contraseña = "";
+          router.push("/Inicio");
       }
-      
+    },
+    async errorLogin() {
+      const alert = await alertController.create({
+        header: "Error",
+        message: "Usuario o email ya registrados",
+        buttons: ["OK"],
+        cssClass: "my-custom-class",
+      });
+      await alert.present();
     },
     async comparador(){
       const db =getFirestore(app);
       const querySnapshot = await getDocs(collection(db, "registros"))
-      querySnapshot.forEach(doc => {
-        if(doc.data().Correo==this.Correo){
-          console.log("Este correo ya existe")
-        }else if(doc.id==this.Nombre){
-          console.log("Este nombre de usuario ya existe")
-        }else{
-          this.Registrar()
-          router.push("/Inicio");
+        var i = 0;
+      querySnapshot.forEach((doc) => {
+        if(doc.id==this.Correo){
+          i++;
+        }if(doc.data().email==this.Correo){
+          i++;
         }
       })
+      if(i==0){
+          this.Registrar()
+          console.log("registro exitoso")
+        }else{
+          this.errorLogin();
+        }
     },
   },
 });
@@ -175,6 +189,6 @@ export default defineComponent({
 <style>
 .use {
   width: 250px;
-  height: 200px;
+  height: 250px;
 }
 </style>

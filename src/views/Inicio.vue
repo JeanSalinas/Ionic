@@ -26,14 +26,11 @@
                     <ion-label position="floating">
                       Correo Electronico
                     </ion-label>
-                    <ion-input type="email" v-model="Correo"></ion-input>
+                    <ion-input type="email" v-model="Correo" placeholder="ejemplo@gmail.com"></ion-input>
                   </ion-item>
                   <ion-item>
                     <ion-label position="floating"> Contraseña </ion-label>
-                    <ion-input
-                      type="contraseña"
-                      v-model="Contraseña"
-                    ></ion-input>
+                    <ion-input type="password" v-model="Contraseña" placeholder="Contraseña"></ion-input>
                   </ion-item>
                 </ion-list>
                 <ion-button expand="block" @click="Iniciar">
@@ -43,7 +40,7 @@
                   Ir a Registro
                 </ion-button>
               </ion-card-content>
-              {{ passIncorrect }}
+              {{ ContraseñaIncorrecta }}
             </ion-card>
           </ion-col>
         </ion-row>
@@ -113,7 +110,6 @@ export default defineComponent({
       Correo: "",
       Contraseña: "",
       ContraseñaIncorrecta:"",
-
     }
   },
   methods: {
@@ -146,7 +142,7 @@ export default defineComponent({
 </script>
 <style>
 .log{
-  width: 250px;
-  height: 250px;
+  width: 150px;
+  height: 150px;
 }
 </style>

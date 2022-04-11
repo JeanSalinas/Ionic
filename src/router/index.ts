@@ -3,6 +3,8 @@ import { RouteRecordRaw } from 'vue-router';
 import HomePage from '../views/HomePage.vue'
 import InicioApp from '../views/Inicio.vue'
 import RegistroApp from '../views/Registro.vue'
+import ubicacionApp from '../views/ubicacion.vue'
+import restApp from '../views/rest.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -30,6 +32,16 @@ const routes: Array<RouteRecordRaw> = [
     path:'/Registro',
     name: 'Registro',
     component: RegistroApp
+  },
+  {
+    path:'/ubicacion',
+    name: 'ubicacion',
+    component: ubicacionApp
+  },
+  {
+    path:'/rest',
+    name: 'rest',
+    component: restApp
   }
 ]
 
